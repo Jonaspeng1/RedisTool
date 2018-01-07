@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <properties>
+        <property name="filters">
+            $Proxy,javax.crypto.Cipher,com.sun.,sun.reflect.,java.lang.reflect.,java.io.,java.net.,org.apache.commons.httpclient.,org.apache.commons.pool.,org.apache.http.,io.netty.,org.junit.,org.apache.maven.
+        </property>
+    </properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%p][%F:%L]:%m%n%xEx{filters(${filters})}"/>
+        </Console>
+        <RollingFile name="toLogFile" fileName="logs/Server" filePattern="logs/Server.%d{yyyy-MM-dd}.log"
+                     ignoreExceptions="true">
+            <PatternLayout pattern="%d [%p][%F:%L]:%m%n%xEx{filters(${filters})}"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+        <Async name="Async">
+            <AppenderRef ref="toLogFile"/>
+        </Async>
+    </appenders>
+    <loggers>
+        <Logger name="com.kingdee.mobile" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="com.kingdee.mobile.eclite.bo" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="com.kingdee.mobile.redis" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="com.kingdee.mobile.eclite.trd.openaccess" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="org.quartz" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <Logger name="org.springframework" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </Logger>
+        <root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Async"/>
+        </root>
+    </loggers>
+</configuration>
